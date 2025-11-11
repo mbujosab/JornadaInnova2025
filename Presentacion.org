@@ -19,7 +19,6 @@
 #+attr_ipynb: (slideshow . ((slide_type . skip)))
 #+BEGIN_SRC jupyter-python :results silent
 from nacal import *
-# from IPython.display import YouTubeVideo
 #+END_SRC
 
 #+attr_ipynb: (slideshow . ((slide_type . skip)))
@@ -27,6 +26,7 @@ from nacal import *
 from IPython.display import display_png
 from sympy import preview
 from IPython.display import display, Math, display_png, Latex
+# from IPython.display import YouTubeVideo
 #+END_SRC
 
 #+LATEX: \maketitle
