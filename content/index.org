@@ -4,4 +4,3 @@
 
 Presentación realizada en la jornada
 - [[file:./Presentacion.slides.html][enlace a la presentación]]
-- [[file:./Presentacion.ipynb][notebook]]
