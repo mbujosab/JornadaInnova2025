@@ -84,73 +84,15 @@ Podemos ver el resultado ejecutando localmente lo siguiente:
 #+END_SRC
 
 
-** Pasos para crear la rama =gh-pages=, configurar GitHub Pages y crear el archivo =build.yml=.
+** Pasos para publicar la presentación, configurar GitHub Pages.
 
-Esto hace las veces de un tutorial para publicación de un repositorio en GitHub en una rama específica para la publicación de ciertos ficheros generados con Actions en GutHub al hacer push de un nuevo commit.
+Esto hace las veces de un tutorial para publicación de un repositorio en GitHub en el directorio =./docs= de la rama =master=.
 
-*** Pasos para crear la rama =gh-pages=
+*** Activar pages
 
-1. *Crea la rama =gh-pages=*:
-2. en Settings -> Pages
-   - indicar que la rama de publicación es =gh-pages= 
+1. en Settings -> Pages
+   - indicar que la rama de publicación es =master= 
    - el directorio =/docs=
    Y salvar esta configuración
-2. en Settings -> Secrets and Variables -> Actions
-   - en =Repository secrets= añadir un secreto previamente creado. El nombre iondicado debe ser el mismo que se indica al final de =.github/workflows/build.yml=
+2. como no estamos usando Actions, no hace falta nada más
 
-*** Contenido del archivo =.github/workflows/build.yml=
-
-#+BEGIN_SRC emacs-lisp :exports none :results silent :tangle no :eval yes
-(unless (file-directory-p ".github")
-  (make-directory ".github"))
-(unless (file-directory-p ".github/workflows")
-  (make-directory ".github/workflows"))
-#+END_SRC
-
-
-A continuación, el contenido sugerido para =build.yml=:
-
-#+begin_src yaml :tangle .github/workflows/build.yml :eval no
-name: Build and Publish
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout del repositorio principal
-        uses: actions/checkout@v4
-
-      - name: Install Emacs
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y emacs
-
-      - name: Tangle Publicacion_del_repositorio.org
-        run: emacs --batch Publicacion_del_repositorio.org -l org -f org-babel-tangle
-
-      - name: Run Makefile
-        run: make publica
-
-      - name: Deploy docs/ a gh-pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.NUEVO_TOKEN_CLASSIC_HASTA_JULIO_2026 }}
-          publish_dir: ./docs
-          publish_branch: gh-pages
-          force_orphan: true
-          allow_empty_commit: true
-
-#+end_src
-
-*** Notas adicionales:
-
-- *Verificar que el repositorio tiene un README.org y el makefile correctamente configurado.*
-- *Verificar que existe el directorio =.github/workflows/=; y que en el está el fichero =build.yml=.*
-
-Con estos pasos, al hacer un push a la rama =main=, se ejecutará este flujo de trabajo, se generarán los archivos y se desplegarán automáticamente en GitHub Pages.

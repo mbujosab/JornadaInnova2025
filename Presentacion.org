@@ -31,7 +31,6 @@ from IPython.display import display, Math, display_png, Latex
 
 #+LATEX: \maketitle
 
-
 /``A good notation should be unambiguous, pregnant, easy to remember: it should avoid harmful second meanings, and take advantage of useful second meanings; the order and connection of signs should suggest the order and connection of things.''/
 [[https://en.wikipedia.org/wiki/The_Martians_(scientists)][(George Polya)]]
 
