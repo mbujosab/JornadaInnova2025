@@ -1,0 +1,156 @@
+#+TITLE: Web del repositorio
+#+SUBTITLE: Notas para recordar cómo lo hice.
+
+La web del repositorio esta en esta dirección: [[https://mbujosab.github.io/JornadaInnova2025/]]
+
+Lo que sigue es un recordatorio de los pasos necesarios para crearla
+
+* Publicación                                                      :noexport:
+
+El siguiente =makefile= genera algunos subdirectorios y ejecuta =Presentacion.org= con scimax (V3.0) para generar las transparencias.
+
+#+BEGIN_SRC makefile :noweb no-export :results silent :tangle makefile  :eval no
+publica: presentación content/index.org
+	emacs --batch -l publish.el
+	touch $@
+
+presentación: Presentacion.org
+	emacs -q -l ~/Software/scimax/init.el Presentacion.org --batch --eval "(org-babel-execute-buffer)" --kill
+	mv Presentacion.ipynb ./docs/
+	mv Presentacion.slides.html ./docs/
+	touch $@
+
+directorios:
+	mkdir -v -p .github/workflows
+	mkdir -v -p .docs
+	touch directorios
+
+clean:
+	rm -r -f docs
+	rm -f directorios
+	rm -f publica
+	rm -f presentación
+
+#+END_SRC
+
+El siguiente script de elisp publica el fichero [[file:index.org][=index.org=]] en formato  =html= en el subdirectorio =./docs=. El objetivo =publica= del script =makefile= indica a =emacs= que ejecute este código de elisp mediante el siguiente comando: =emacs --batch -l publish.el=
+
+#+BEGIN_SRC emacs-lisp :tangle ./publish.el :results silent
+  (require 'ox-publish)
+
+  (use-package htmlize)
+
+  ;; Customize the HTML output
+  (setq org-html-validation-link nil            ;; Don't show validation link
+        org-html-head-include-scripts nil       ;; Use our own scripts
+        org-html-head-include-default-style nil ;; Use our own styles
+        org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
+
+  (let* ((base-directory "./")
+         (org-export-with-broken-links t)
+         (org-publish-project-alist `(("html"
+  				     :base-directory ,(concat base-directory "content")
+  				     :base-extension "org"
+  				     :publishing-directory ,(concat base-directory "docs")
+  				     :exclude "docs"
+  				     :recursive t
+  				     :publishing-function org-html-publish-to-html
+  				     :auto-preamble t
+  				     :auto-sitemap nil
+                                       :with-author nil           ;; Don't include author name
+                                       :with-creator nil          ;; Include Emacs and Org versions in footer
+                                       :with-toc t                ;; Include a table of contents
+                                       :section-numbers nil       ;; Don't include section numbers
+                                       :time-stamp-file nil)
+  				    
+  				    ("static-html"
+  				     :base-directory ,(concat base-directory "content")
+  				     :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|dat\\|mov\\|txt\\|svg\\|aiff"
+  				     :publishing-directory ,(concat base-directory "docs")
+  				     :exclude "docs"
+  				     :recursive t
+  				     :publishing-function org-publish-attachment)
+
+  				    ;; ... all the components ...
+  				    ("web" :components ("html" "static-html")))))
+
+    (org-publish "web" t))
+#+END_SRC
+
+Podemos ver el resultado ejecutando localmente lo siguiente:
+
+#+BEGIN_SRC emacs-lisp :results  silent
+(browse-url "docs/index.html")
+#+END_SRC
+
+
+** Pasos para crear la rama =gh-pages=, configurar GitHub Pages y crear el archivo =build.yml=.
+
+Esto hace las veces de un tutorial para publicación de un repositorio en GitHub en una rama específica para la publicación de ciertos ficheros generados con Actions en GutHub al hacer push de un nuevo commit.
+
+*** Pasos para crear la rama =gh-pages=
+
+1. *Crea la rama =gh-pages=*:
+2. en Settings -> Pages
+   - indicar que la rama de publicación es =gh-pages= 
+   - el directorio =/docs=
+   Y salvar esta configuración
+2. en Settings -> Secrets and Variables -> Actions
+   - en =Repository secrets= añadir un secreto previamente creado. El nombre iondicado debe ser el mismo que se indica al final de =.github/workflows/build.yml=
+
+*** Contenido del archivo =.github/workflows/build.yml=
+
+#+BEGIN_SRC emacs-lisp :exports none :results silent :tangle no :eval yes
+(unless (file-directory-p ".github")
+  (make-directory ".github"))
+(unless (file-directory-p ".github/workflows")
+  (make-directory ".github/workflows"))
+#+END_SRC
+
+
+A continuación, el contenido sugerido para =build.yml=:
+
+#+begin_src yaml :tangle .github/workflows/build.yml :eval no
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio principal
+        uses: actions/checkout@v4
+
+      - name: Install Emacs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y emacs
+
+      - name: Tangle Publicacion_del_repositorio.org
+        run: emacs --batch Publicacion_del_repositorio.org -l org -f org-babel-tangle
+
+      - name: Run Makefile
+        run: make publica
+
+      - name: Deploy docs/ a gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.NUEVO_TOKEN_CLASSIC_HASTA_JULIO_2026 }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          force_orphan: true
+          allow_empty_commit: true
+
+#+end_src
+
+*** Notas adicionales:
+
+- *Verificar que el repositorio tiene un README.org y el makefile correctamente configurado.*
+- *Verificar que existe el directorio =.github/workflows/=; y que en el está el fichero =build.yml=.*
+
+Con estos pasos, al hacer un push a la rama =main=, se ejecutará este flujo de trabajo, se generarán los archivos y se desplegarán automáticamente en GitHub Pages.

@@ -1,0 +1,7 @@
+#+title: Jornada Innova 2025 
+#+subtitle: F. de CC Económicas y Empresariales. UCM
+#+LANGUAGE: es
+
+Presentación realizada en la jornada
+- [[file:./Presentacion.slides.html][enlace a la presentación]]
+- [[file:./Presentacion.ipynb][notebook]]

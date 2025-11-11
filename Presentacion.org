@@ -1,0 +1,237 @@
+#    -*- mode: org -*-
+
+#+TITLE: Notación Asociativa para un curso de Álgebra Lineal (NAcAL)
+#+author: Marcos Bujosa
+#+LANGUAGE: es
+
+#+include: 00preambulo_lecciones.txt
+
+#+REVEAL_HEAD_EXTRA: <style> .gracias {  text-align: center;  font-size: 400%;  margin-top: 30vh;}</style>
+
+
+#+BEGIN_SRC emacs-lisp :exports none :results silent
+(use-package ox-ipynb
+  :load-path (lambda () (expand-file-name "ox-ipynb" scimax-dir)))
+(use-package htmlize)
+#+END_SRC
+
+
+#+attr_ipynb: (slideshow . ((slide_type . skip)))
+#+BEGIN_SRC jupyter-python :results silent
+from nacal import *
+# from IPython.display import YouTubeVideo
+#+END_SRC
+
+#+attr_ipynb: (slideshow . ((slide_type . skip)))
+#+BEGIN_SRC jupyter-python  :results silent :exports none
+from IPython.display import display_png
+from sympy import preview
+from IPython.display import display, Math, display_png, Latex
+#+END_SRC
+
+#+LATEX: \maketitle
+
+
+/``A good notation should be unambiguous, pregnant, easy to remember: it should avoid harmful second meanings, and take advantage of useful second meanings; the order and connection of signs should suggest the order and connection of things.''/
+[[https://en.wikipedia.org/wiki/The_Martians_(scientists)][(George Polya)]]
+
+#+attr_ipynb: (slideshow . ((slide_type . slide)))
+/``Notation is everything''/ [[https://en.wikipedia.org/wiki/Charles_F._Van_Loan][(Charles F. Van Loan)]]
+
+* *Las matemáticas son un lenguaje*; no un catálogo de procedimientos mecánicos. 
+
+*Un curso de matemáticas de primer año debe facilitar* la transición desde la enseñanza secundaria, centrada en la ejecución de algoritmos, hacia *la comprensión del lenguaje matemático*.
+
+Una *notación clara y operativa facilita el pensamiento y la construcción de argumentos matemáticos*, haciendo que la comunicación sea más ágil y efectiva.
+
+
+#+attr_ipynb: (slideshow . ((slide_type . notes)))
+Priorizar la comprensión y uso del lenguaje matemático.  
+La notación matemática mejora la claridad logrando concisión y brevedad.  
+Notación: cuanto más operativa mejor.
+
+
+* Matemáticas como un lenguaje de programación
+   :PROPERTIES:
+   :metadata: (slideshow . ((slide_type . slide)))
+   :END:
+
+En el bachillerato los estudiantes no han asimilado la importancia de la corrección en las expresiones matemáticas.
+
+- Creen que basta con que se "sobreentienda" lo que está escrito.
+- Generalmente no son capaces de saber si una expresión es correcta.
+
+La dificultad para reconocer expresiones correctas es similar a aprender a programar. Pero ahí un ordenador interpretará sin "sobreentender": si el código es incorrecto, fallará o dará resultados indeseados; facilitando la detección de errores.
+
+*/Lo ideal sería trabajar con las expresiones matemáticas como si fueran un lenguaje de programación, y que un intérprete las evalúe./*
+
+
+#+attr_ipynb: (slideshow . ((slide_type . notes)))
+
+Los estudiantes no suelen percibir cuando una expresión es correcta.   
+Esto se asemeja al aprendizaje de un lenguaje de programación.   
+Por eso un intérprete de expresiones ayudaría a identificar errores más fácilmente.
+
+
+** Notación operativa
+   :PROPERTIES:
+   :metadata: (slideshow . ((slide_type . subslide)))
+   :END:
+
+Una notación realmente operativa /debería funcionar como un lenguaje de programación/. 
+Por eso, me propuse:
+- *Mejorar la operatividad de la notación habitual*: haciendo explícitos algunos operadores para reducir el número de fuentes, reflejando la asociatividad en la notación mediante la incorporación de ciertas reglas que surgen naturalmente, etc.
+
+- *Simplificar algorítmicamente el curso*, uso del /método de eliminación/ para todo (o casi).
+# - Priorizar la eliminación por columnas sobre la eliminación por filas (por razones que no tengo tiempo de exponer).
+*El modo de hacerlo:* programar en Python (y desde cero) tanto los objetos matemáticos, como la notación y los algoritmos del curso completo.
+
+#+attr_ipynb: (slideshow . ((slide_type . notes)))
+Encontrar una notación tan operativa que emule un lenguaje de programación.    
+Simplificar el discurso explotando al máximo el menor número de algoritmos.  
+Para asegurarme de que todo funciona, lo he programado en Python desde cero.
+
+
+
+* El módulo [[https://pypi.org/project/nacal/][=NAcAL=]] de python
+   :PROPERTIES:
+   :metadata: (slideshow . ((slide_type . slide)))
+   :END:
+
+[[https://pypi.org/project/nacal/][=NAcAL=]] es una implementación literal de la notación, algoritmos y definiciones del curso.
+
+Su programación ha supuesto un proceso de retroalimentación:
+- las definiciones del curso han guiado la programación del código.
+- las soluciones en la programación han llevado a revisar las definiciones del curso.
+Este proceso ha dotado al curso de una mayor coherencia.
+
+Para más detalles, véase la introducción del libro [[https://mbujosab.github.io/CursoDeAlgebraLineal/libro.pdf][Curso de Álgebra Lineal]] y la [[https://github.com/mbujosab/nacallib/blob/master/nacal_src.pdf][documentación y código]] de [[https://pypi.org/project/nacal/][=NAcAL=]].
+
+
+** =NAcAL=  permite a los alumnos
+   :PROPERTIES:
+   :metadata: (slideshow . ((slide_type . subslide)))
+   :END:
+
+- Trasladar expresiones como las del curso (y de manera casi literal) al ordenador:
+  /si la expresión falla o no arroja lo esperado, _es incorrecta_/.
+- Verificar la corrección de soluciones. Por ejemplo, con =NAcAL= pueden confirmar si la solución hallada es correcta aunque difiera de la del profesor o el libro.
+- Si no saben resolver un ejercicio, =NAcAL= ofrece la resolución paso a paso.
+- El alumno puede aprender probando y experimentando.
+
+[[https://mybinder.org/v2/gh/mbujosab/nacallib/master?filepath=doc%2FNotebooks%2FNotebook.ipynb][Ejemplo extenso con un notebook en MyBinder]]
+
+** =NAcAL=  permite a los profesores
+   :PROPERTIES:
+   :metadata: (slideshow . ((slide_type . subslide)))
+   :END:
+
+- Evitar errores tipográficos al escribir expresiones o resolver problemas.
+- Lograr coherencia en la notación empleada.
+- Encontrar fácilmente ejemplos adecuados o elaborar ejercicios sencillos para los alumnos, presentándolos sin errores.
+  - [[https://mbujosab.github.io/CursoDeAlgebraLineal/libro.pdf#Item.10][Ejemplos en la introducción del libro]]
+  - [[https://mbujosab.github.io/MatematicasII/#org907862b][Ejercicios de los exámenes]]
+
+(los ejemplos están escritos en [[https://github.com/mbujosab/nacal-latex-package][$\LaTeX{}$]] llamando a =NAcAL= con el paquete [[https://www.ctan.org/pkg/pythontex][Python$\TeX{}$]])
+
+*  
+   :PROPERTIES:
+   :metadata: (slideshow . ((slide_type . slide)))
+   :END:
+#+HTML: <h1 style="text-align:center; font-size:400%;">Muchas gracias.</h1>
+
+
+* =NAcAL= + $\LaTeX{}$ ¡Gran tándem!
+   :PROPERTIES:
+   :metadata: (slideshow . ((slide_type . slide)))
+   :END:
+
+#+BEGIN_SRC jupyter-python :results silent
+a,x,y,z = sympy.symbols('a x y z')
+A = Matrix([[-1, 1, 0], [ 1,-1, a], [ 0, a,-1]])
+v = Vector([x,y,z])
+#+END_SRC
+
+#+BEGIN_SRC jupyter-python :eval no
+dispElimFyC(A, DiagonalizaC(A).pasos)
+#+END_SRC
+
+#+BEGIN_SRC jupyter-python :results silent :exports none :eval no
+with open("Output.tex", "w") as text_file:
+    text_file.write('\(\small '+rprElimFyC(A, DiagonalizaC(A).pasos)+'\)')
+#+END_SRC
+
+# +include: Output.tex
+
+#+attr_ipynb: (slideshow . ((slide_type . subslide)))
+#+BEGIN_SRC latex :eval no :exports code
+\begin{exercise}*
+  \begin{pycode}
+a,x,y,z = sympy.symbols('a x y z')
+A = Matrix([[-1, 1, 0], [ 1,-1, a], [ 0, a,-1]])
+v = Vector([x,y,z])
+  \end{pycode}
+
+  Sea la forma cuadrática
+  \begin{math}
+    f(\Vect{x})= \py{latex( Vector(v,'h') )} \py{latex( A )} \py{latex( v )}.
+  \end{math}
+  Halle, si existieran, todos los valores del parámetro $a$ de  manera que $f(\Vect{x})$ sea:
+  \begin{parts}
+  \item Definida negativa.
+    \begin{solution}[]
+      Puesto que
+      \begin{displaymath}
+        \py{rprElimFyC(A, DiagonalizaC(A,1).pasos)}  
+      \end{displaymath}
+      $f(\Vect{x})$ no puede ser definida negativa en ningún caso.
+    \end{solution}
+
+  \item Indefinida.
+    \begin{solution}[]
+      Si $a\ne0$ entonces $f(\Vect{x})$ puede tomar valores tanto positivos como negativos (solo sería cero en el caso $f(\Vect{0})$).
+    \end{solution}
+
+  \item Semidefinida negativa.
+    \begin{solution}[]
+      Si $a=0$.
+    \end{solution}
+  \end{parts}
+\end{exercise}
+#+END_SRC
+
+- [[https://mbujosab.github.io/MatematicasII/Esp/ExamenesPasados/Final-Review-ES.pdf#ex.24a][Ejercicio CP2 de Mayo de 2024]]
+
+
+
+* COMMENT ipynb y slides                                           :noexport:
+
+#+BEGIN_SRC emacs-lisp :exports none :results silent :tangle no :eval yes
+(unless (file-directory-p "docs")
+  (make-directory "docs"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :results silent
+(require 'ox-ipynb)
+(ox-ipynb-export-org-file-to-ipynb-file "Presentacion.org")
+#+END_SRC
+
+#+BEGIN_SRC sh :results silent 
+jupyter nbconvert --execute --inplace Presentacion.ipynb
+#+END_SRC
+
+#+BEGIN_SRC sh :results silent 
+jupyter nbconvert --config mycfg-GitHubPages.py --to slides --reveal-prefix "https://unpkg.com/reveal.js@5.2.1" --execute Presentacion.ipynb
+#+END_SRC
+
+* COMMENT Notación operativa versus notación visual
+   :PROPERTIES:
+   :metadata: (slideshow . ((slide_type . subslide)))
+   :END:
+
+Gran parte de la notación habitual tiende a ser visual o centrarse en el modo de calcular
+- Ninguna de estas propiedades es recomendada en la cita de Polya
+- Ninguna de estas propiedades ayuda a la operatividad (es decir, a la construcción de argumentos matemáticos)
+
+Por ejemplo, la notación habitual describe la esperanza matemática como un sumatorio o una integral (es decir, destaca cómo calcularla). En mi opinión (y siguiendo la sugerencia de Polya) sería preferible una notación que destaque su papel como producto escalar o su descripción como proyección ortogonal.
+
