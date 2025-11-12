@@ -14122,8 +14122,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><em>``A good notation should be unambiguous, pregnant, easy to remember: it should avoid harmful second meanings, and take advantage of useful second meanings; the order and connection of signs should suggest the order and connection of things.''</em>
-<a href="https://en.wikipedia.org/wiki/The_Martians_(scientists">(George Polya)</a>)</p>
+<p><em>``A good notation should be unambiguous, pregnant, easy to remember: it should avoid harmful second meanings, and take advantage of useful second meanings; the order and connection of signs should suggest the order and connection of things.''</em> <a href="https://en.wikipedia.org/wiki/The_Martians_(scientists">(George Polya)</a>)</p>
 
 </div>
 </div>
@@ -14159,7 +14158,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Un curso de matemáticas de primer año debe facilitar</strong> la transición desde la enseñanza secundaria, centrada en la ejecución de algoritmos, hacia <strong>la comprensión del lenguaje matemático</strong>.</p>
-<p>Una <strong>notación clara y operativa facilita el pensamiento y la construcción de argumentos matemáticos</strong>, haciendo que la comunicación sea más ágil y efectiva.</p>
+<p>El lenguaje matemático precisa de una <strong>notación clara y operativa que facilite el pensamiento y la construcción de argumentos matemáticos</strong>.</p>
 
 </div>
 </div>
@@ -14246,12 +14245,12 @@ Por eso un intérprete de expresiones ayudaría a identificar errores más fáci
 <p>Una notación realmente operativa <em>debería funcionar como un lenguaje de programación</em>. 
 Por eso, me propuse:</p>
 <ul>
-<li><p><strong>Mejorar la operatividad de la notación habitual</strong>: haciendo explícitos algunos operadores para reducir el número de fuentes, reflejando la asociatividad en la notación mediante la incorporación de ciertas reglas que surgen naturalmente, etc.</p>
+<li><p><strong>Mejorar la operatividad de la notación habitual</strong>: haciendo explícitos algunos operadores para reducir el número de fuentes, reflejando la asociatividad en la notación mediante nuevas reglas en la disposición de los símbolos, etc.</p>
 </li>
-<li><p><strong>Simplificar algorítmicamente el curso</strong>, uso del <em>método de eliminación</em> para todo (o casi).</p>
+<li><p><strong>Simplificar algorítmicamente el curso</strong>, usando la <em>eliminación</em> para todo (o casi).</p>
 </li>
 </ul>
-<p><strong>El modo de hacerlo:</strong> programar en Python (y desde cero) tanto los objetos matemáticos, como la notación y los algoritmos del curso completo.</p>
+<p><em>El modo de examinar la validez y corrección de estas propuestas</em> ha sido programar, desde cero, los objetos matemáticos, la notación y los algoritmos del curso completo.</p>
 
 </div>
 </div>
@@ -14293,11 +14292,11 @@ Para asegurarme de que todo funciona, lo he programado en Python desde cero.</p>
 <p><a href="https://pypi.org/project/nacal/"><code>NAcAL</code></a> es una implementación literal de la notación, algoritmos y definiciones del curso.</p>
 <p>Su programación ha supuesto un proceso de retroalimentación:</p>
 <ul>
-<li>las definiciones del curso han guiado la programación del código.</li>
-<li>las soluciones en la programación han llevado a revisar las definiciones del curso.</li>
+<li>las definiciones y algoritmos del curso han guiado la programación del código.</li>
+<li>el diseño del código me ha llevado a revisar las definiciones y algoritmos.</li>
 </ul>
 <p>Este proceso ha dotado al curso de una mayor coherencia.</p>
-<p>Para más detalles, véase la introducción del libro <a href="https://mbujosab.github.io/CursoDeAlgebraLineal/libro.pdf">Curso de Álgebra Lineal</a> y la <a href="https://github.com/mbujosab/nacallib/blob/master/nacal_src.pdf">documentación y código</a> de <a href="https://pypi.org/project/nacal/"><code>NAcAL</code></a>.</p>
+<p>(<em>Para más detalles, véase la introducción del libro <a href="https://mbujosab.github.io/CursoDeAlgebraLineal/libro.pdf">Curso de Álgebra Lineal</a> y la <a href="https://github.com/mbujosab/nacallib/blob/master/nacal_src.pdf">documentación y código</a> de</em> <a href="https://pypi.org/project/nacal/"><code>NAcAL</code></a>).</p>
 
 </div>
 </div>
@@ -14324,10 +14323,35 @@ Para asegurarme de que todo funciona, lo he programado en Python desde cero.</p>
 <li>Trasladar expresiones como las del curso (y de manera casi literal) al ordenador:
 <em>si la expresión falla o no arroja lo esperado, <u>es incorrecta</u></em>.</li>
 <li>Verificar la corrección de soluciones. Por ejemplo, con <code>NAcAL</code> pueden confirmar si la solución hallada es correcta aunque difiera de la del profesor o el libro.</li>
-<li>Si no saben resolver un ejercicio, <code>NAcAL</code> ofrece la resolución paso a paso.</li>
-<li>El alumno puede aprender probando y experimentando.</li>
+<li>Si no saben resolver un ejercicio, <code>NAcAL</code> muestra los cálculos paso a paso.</li>
+<li>El alumno puede aprender probando y experimentando con el código.</li>
 </ul>
-<p><a href="https://mybinder.org/v2/gh/mbujosab/nacallib/master?filepath=doc%2FNotebooks%2FNotebook.ipynb">Ejemplo extenso con un notebook en MyBinder</a></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Ejemplos">Ejemplos<a class="anchor-link" href="#Ejemplos">&#182;</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><a href="https://mybinder.org/v2/gh/mbujosab/nacallib/master?filepath=doc%2FNotebooks%2FNotebook.ipynb">Ejemplo extenso con un cuaderno electrónico (notebook) en MyBinder</a></li>
+<li><a href="https://mybinder.org/v2/gh/mbujosab/nacal-Jupyter-Notebooks/master">Algunos cuadernos electrónicos (notebooks) del curso</a></li>
+</ul>
 
 </div>
 </div>
@@ -14353,11 +14377,33 @@ Para asegurarme de que todo funciona, lo he programado en Python desde cero.</p>
 <ul>
 <li>Evitar errores tipográficos al escribir expresiones o resolver problemas.</li>
 <li>Lograr coherencia en la notación empleada.</li>
-<li>Encontrar fácilmente ejemplos adecuados o elaborar ejercicios sencillos para los alumnos, presentándolos sin errores.<ul>
+<li>Encontrar fácilmente ejemplos adecuados o elaborar ejercicios sencillos para los alumnos, presentándolos sin errores.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Ejemplos">Ejemplos<a class="anchor-link" href="#Ejemplos">&#182;</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
 <li><a href="https://mbujosab.github.io/CursoDeAlgebraLineal/libro.pdf#Item.10">Ejemplos en la introducción del libro</a></li>
 <li><a href="https://mbujosab.github.io/MatematicasII/#org907862b">Ejercicios de los exámenes</a></li>
-</ul>
-</li>
 </ul>
 <p>(los ejemplos están escritos en <a href="https://github.com/mbujosab/nacal-latex-package">$\LaTeX{}$</a> llamando a <code>NAcAL</code> con el paquete <a href="https://www.ctan.org/pkg/pythontex">Python$\TeX{}$</a>)</p>
 
